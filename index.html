@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitación a San Valentín</title>
+    <style>
+         
+         body {
+    background-color: #f0f0f0;
+    font-family: sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+#siBtn {
+    background-color: #4CAF50;
+    color: white;
+}
+
+#noBtn {
+    background-color: #f44336;
+    color: white;
+}
+
+#happyGifs img, #sadGifs img {
+    max-width: 300px;
+    height: auto;
+    display: none;
+    margin: 10px 0;
+}
+
+#happyGifs img:first-child, #sadGifs img:first-child {
+    display: block;
+}
+
+#messageContainer {
+    margin-top: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.carta {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.hojas {
+    width: 100%;
+    max-width: 400px;
+    margin-top: 20px;
+}
+
+#noBtn.crecer {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+ 
+#miAudio {
+    display: none;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div id="gifContainer">
+            <img id="initialGif" src="https://app.emprendeconmoiseslaptos.xyz/img/583351f42d7f7f0a330df5b9fb499525.gif" alt="Ositos Iniciales">
+        </div>
+
+        <div id="happyGifs" style="display: none;">
+            <img src="https://app.emprendeconmoiseslaptos.xyz/img/43aeb66e180696bd0e32a7c148d82eb8.gif" alt="Ositos Felices 1">
+            <img src="https://app.emprendeconmoiseslaptos.xyz/img/a7dc4a0db9469577bd24700a124d3249.gif" alt="Ositos Felices 2">
+            <img src="https://app.emprendeconmoiseslaptos.xyz/img/happy-birthday.gif" alt="Ositos Felices 3">
+            <img src="https://app.emprendeconmoiseslaptos.xyz/img/884ed6a2f7f15fa7cc0cd38d68d566af.gif" alt="Ositos Felices 4">
+        </div>
+
+        <div id="sadGifs" style="display: none;">
+            <img src="https://app.emprendeconmoiseslaptos.xyz/img/stitch-sad-sad-stitch.gif" alt="Osito Triste 1">
+            <img src="https://app.emprendeconmoiseslaptos.xyz/img/9481c559b0123f6f4102eec6d62d6994.gif" alt="Osito Triste 2">
+            <img src="https://app.emprendeconmoiseslaptos.xyz/img/6e8a7ad2f56becf15d975c8f3cce0203.gif" alt="Osito Triste 3">
+        </div>
+
+        <h1 id="question">¿Quieres ser mi San Valentín?</h1>
+        <div id="messageContainer" style="display: none;"></div>
+
+        <div class="buttons">
+            <button id="siBtn">Sí</button>
+            <button id="noBtn">No</button>
+        </div>
+
+        <div id="cartaContainer" style="display: none;">
+            <div class="carta">
+                <h2>¡Feliz Día de San Valentín!</h2>
+                <p>
+                    Te amo más de lo que las palabras pueden expresar. Eres la persona más especial en mi vida y estoy muy feliz de tenerte a mi lado.
+                    <br><br>
+                    ¡Espero que este día esté lleno de amor y alegría para nosotros!
+                </p>
+                <img src="https://app.emprendeconmoiseslaptos.xyz/img/dd7b19fc9bf0d477f311093ffe0a094e.gif" alt="Hojas cayendo" class="hojas">
+            </div>
+        </div>
+    </div>
+    <audio id="miAudio">
+        <source src="https://app.emprendeconmoiseslaptos.xyz/img/Bryant%20Myers%20-%20Hasta%20Que%20Me%20Muera%20%20Lyric%20Video%20%28mp3cut.net%29.mp3" type="audio/mpeg">
+       
+    </audio>
+    <script> 
+
+const siBtn = document.getElementById('siBtn');
+const noBtn = document.getElementById('noBtn');
+const question = document.getElementById('question');
+const messageContainer = document.getElementById('messageContainer');
+const gifContainer = document.getElementById('gifContainer');
+const initialGif = document.getElementById('initialGif');
+const happyGifs = document.getElementById('happyGifs');
+const sadGifs = document.getElementById('sadGifs');
+const cartaContainer = document.getElementById('cartaContainer');
+const audio = document.getElementById('miAudio');
+
+let currentHappyGif = 0;
+let currentSadGif = 0;
+
+const tijera = document.createElement('div');
+tijera.classList.add('tijera');
+
+siBtn.addEventListener('click', () => {
+    mostrarGifs('happy');
+    messageContainer.textContent = "¡Yay! ¡Me haces muy feliz!";
+    cartaContainer.style.display = 'block';
+    question.style.display = 'none';
+    gifContainer.style.display = 'none';
+    siBtn.classList.add('crecer');
+    cartaContainer.querySelector('.carta').appendChild(tijera);
+    reproducirAudioEn(5); // Reproducir audio en el segundo 5
+});
+
+noBtn.addEventListener('click', () => {
+    mostrarGifs('sad');
+    messageContainer.textContent = "Oh... ¡Qué pena! Tal vez la próxima :(";
+    noBtn.classList.add('crecer');
+    question.style.display = 'none';
+    gifContainer.style.display = 'none';
+});
+
+function mostrarGifs(tipo) {
+    happyGifs.style.display = 'none';
+    sadGifs.style.display = 'none';
+    messageContainer.style.display = 'block';
+
+    if (tipo === 'happy') {
+        happyGifs.style.display = 'block';
+        cambiarGif(happyGifs, currentHappyGif);
+        setInterval(() => {
+            currentHappyGif = cambiarGif(happyGifs, currentHappyGif);
+        }, 3000);
+    } else if (tipo === 'sad') {
+        sadGifs.style.display = 'block';
+        cambiarGif(sadGifs, currentSadGif);
+        setInterval(() => {
+            currentSadGif = cambiarGif(sadGifs, currentSadGif);
+        }, 3000);
+    }
+}
+
+function cambiarGif(contenedor, indiceActual) {
+    contenedor.children[indiceActual].style.display = 'none';
+    let nuevoIndice = (indiceActual + 1) % contenedor.children.length;
+    contenedor.children[nuevoIndice].style.display = 'block';
+    return nuevoIndice;
+}
+
+function reproducirAudioEn(segundo) {
+    audio.currentTime = segundo;
+    audio.play();
+}
+    </script>
+</body>
+</html>
